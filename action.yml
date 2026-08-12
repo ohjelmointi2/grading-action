@@ -1,0 +1,8 @@
+name: Grade
+description: Grade the assignment
+
+runs:
+  using: composite
+  steps:
+    - run: bash "$GITHUB_ACTION_PATH/grade.sh"
+      shell: bash
