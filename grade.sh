@@ -30,6 +30,7 @@ while IFS= read -r test; do
     name=$(jq -r '.name' <<< "$test")
     run=$(jq -r '.run' <<< "$test")
     points=$(jq -r '.points' <<< "$test")
+    timeout=$(jq -r '.timeout // 10' <<< "$test")
 
     max_score=$((max_score + points))
 
@@ -38,7 +39,7 @@ while IFS= read -r test; do
 
     echo "Running: $name"
 
-    if bash -c "$run" \
+    if timeout --verbose $timeout bash -c "$run" \
         >"$log_file" \
         2>&1; then
 
