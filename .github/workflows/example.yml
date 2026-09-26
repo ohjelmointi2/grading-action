@@ -12,6 +12,6 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Run example suite
-        uses: ./action.yml
+        uses: ./
         with:
           test_suite: ./example.json
