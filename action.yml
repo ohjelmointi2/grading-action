@@ -1,8 +1,16 @@
 name: Grade
 description: Grade the assignment
 
+inputs:
+  test_suite:
+    description: Path to the test suite JSON file, relative to the workspace
+    required: false
+    default: '.grading/config.json'
+
 runs:
   using: composite
   steps:
-    - run: bash "$GITHUB_ACTION_PATH/grade.sh"
+    - run: bash "$GITHUB_ACTION_PATH/grade.sh" "$TEST_SUITE"
       shell: bash
+      env:
+        TEST_SUITE: ${{ inputs.test_suite }}

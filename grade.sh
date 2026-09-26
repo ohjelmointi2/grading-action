@@ -2,7 +2,8 @@
 
 set -uo pipefail
 
-CONFIG_FILE="${GITHUB_WORKSPACE}/.grading/config.json"
+test_suite="${1:-.grading/config.json}"
+CONFIG_FILE="${GITHUB_WORKSPACE:-$PWD}/$test_suite"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
     echo "Error: grading configuration not found in file $CONFIG_FILE"

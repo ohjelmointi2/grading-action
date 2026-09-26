@@ -3,6 +3,8 @@
 GitHub Actions action for grading an exercise repository.
 
 ```yaml
-- name: Grade
-  uses: hh-programming-2-exercises/grading-action@v0.0.1
+- name: Autograding
+  uses: ohjelmointi2/grading-action@v0.0.1
+  with:
+    test_suite: ./tests.json
 ```
