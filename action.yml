@@ -7,10 +7,29 @@ inputs:
     required: false
     default: '.grading/config.json'
 
+
 runs:
   using: composite
   steps:
-    - run: bash "$GITHUB_ACTION_PATH/grade.sh" "$TEST_SUITE"
+    - name: Run grading
+      id: grading
+      continue-on-error: true
+      run: bash "$GITHUB_ACTION_PATH/grade.sh" "$TEST_SUITE"
       shell: bash
       env:
         TEST_SUITE: ${{ inputs.test_suite }}
+
+    - name: Update commit status
+      run: |
+        gh api \
+          --method POST \
+          repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA \
+          -f "state=$STATUS_STATE" \
+          -f "context=Autograding" \
+          -f "description=$STATUS_DESCRIPTION" \
+          -f "target_url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+      env:
+        GH_TOKEN: ${{ github.token }}
+        STATUS_STATE: ${{ steps.grading.outputs.status_state }}
+        STATUS_DESCRIPTION: ${{ steps.grading.outputs.status_description }}
+      shell: bash

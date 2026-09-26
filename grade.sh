@@ -105,6 +105,15 @@ fi
     echo "MAX_SCORE=$max_score"
 } >> "$GITHUB_ENV" 2>/dev/null || true
 
+{
+    result="success"
+    if [[ "$has_failures" == true ]]; then
+        result="failure"
+    fi
+    echo "status_state=$result"
+    echo "status_description=Score: ${total_score}/${max_score}"
+} >> "${GITHUB_OUTPUT:-/dev/null}"
+
 if [[ "$has_failures" == true ]]; then
     exit 1
 fi
