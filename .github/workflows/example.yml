@@ -3,6 +3,10 @@ name: Run example test suite
 on:
   push:
 
+permissions:
+  contents: read
+  statuses: write
+
 jobs:
   grade:
     runs-on: ubuntu-latest
