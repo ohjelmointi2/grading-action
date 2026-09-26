@@ -1,0 +1,17 @@
+name: Run example test suite
+
+on:
+  push:
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Run example suite
+        uses: ./action.yml
+        with:
+          test_suite: ./example.json
