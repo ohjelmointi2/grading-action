@@ -59,14 +59,14 @@ while IFS= read -r test; do
         echo "$(cat ${log_file})"
 
         failures+="### ${name}
-
 "
 
 
         if [[ -s "$log_file" ]]; then
             failures+="
-
 \`\`\`text
+$run
+
 $(cat "$log_file")
 \`\`\`
 
@@ -79,6 +79,7 @@ $(cat "$log_file")
 "
         fi
     fi
+    echo
 
 done < <(jq -c '.tests[]' "$CONFIG_FILE")
 
@@ -91,7 +92,6 @@ if [[ "$has_failures" == true ]]; then
     report+="${failures}"
 fi
 
-echo
 echo "========================="
 echo "🏅 Total points: ${total_score}/${max_score}"
 echo "========================="
