@@ -1,0 +1,28 @@
+{
+    "tests": [
+        {
+            "name": "README exists",
+            "run": "test -f README.md",
+            "points": 1,
+            "timeout": "5s"
+        },
+        {
+            "name": "README has a title",
+            "run": "grep -q '^# Grading action$' README.md",
+            "points": 1,
+            "timeout": "5s"
+        },
+        {
+            "name": "Example of a failing test",
+            "run": "cat non_existent_file.txt",
+            "points": 1,
+            "timeout": "5s"
+        },
+        {
+            "name": "Example of failing timeout",
+            "run": "sleep 2",
+            "points": 1,
+            "timeout": "1s"
+        }
+    ]
+}
