@@ -36,10 +36,14 @@ runs:
         STATUS_DESCRIPTION: ${{ steps.grading.outputs.status_description }}
       shell: bash
 
-    - name: Propagate result
+    - name: Report grading result
       if: always()
       run: |
         if [[ "${{ steps.grading.outcome }}" == "failure" || "${{ steps.update_status.outcome }}" == "failure" ]]; then
+          echo "❌ One or more steps failed."
+          echo
+          echo "See the \"Run tests and generate grading report\" step above for more details on"
+          echo "individual test failures, or check the summary page for a grading report."
           exit 1
         fi
       shell: bash
