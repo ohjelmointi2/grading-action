@@ -7,14 +7,6 @@ inputs:
     required: false
     default: '.grading/config.json'
 
-outputs:
-  status_state:
-    description: Grading result status: success or failure
-    value: ${{ steps.grading.outputs.status_state }}
-  status_description:
-    description: Score as text in the format of "Score: 50/100"
-    value: ${{ steps.grading.outputs.status_description }}
-
 runs:
   using: composite
   steps:
